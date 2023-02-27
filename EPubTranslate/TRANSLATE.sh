@@ -14,13 +14,14 @@ cat text | sed 's/[.!,?]  */&\n/g' >> text2
 #SLANG=`sed -n '1p' $SCRIPT_AREA/tlang`
 #DLANG=`sed -n '2p' $SCRIPT_AREA/tlang`
 #ENGINE=`sed -n '3p' $SCRIPT_AREA/tlang`
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
   echo "$line" >> trans_text2.txt
   echo "{(" >> trans_text2.txt
   #trans -e 'bing' -s de -t en "$line" --brief | sed  's/.*>//g' >> trans_text2.txt
 
-  python translate.py $line  | sed  's/.*>//g' >> trans_text2.txt
+  python3 $SCRIPT_DIR/translate.py $line  | sed  's/.*>//g' >> trans_text2.txt
   
   #trans -no-auto -s $SLANG -t $DLANG -b -e $ENGINE "$line" >> trans_text2.txt
   echo ")}" >> trans_text2.txt

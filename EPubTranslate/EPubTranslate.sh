@@ -10,6 +10,9 @@ rm -rf $file.zip
 rm -rf WD
 mkdir WD
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+
 UNDERLINE_OPTION="YES"
 #UNDERLINE_OPTION=`sed -n '4p' $SCRIPT_AREA/tlang`
 
@@ -26,7 +29,7 @@ do
   rm -rf 1.html
   cd WD
   rm -rf test2.html
-  perl sc.pl
+  perl $SCRIPT_DIR/sc.pl
   cd ..
   extension="${f##*.}"
   if [ "$extension" = "xhtml" ]; then

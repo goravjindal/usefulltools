@@ -6,6 +6,7 @@ use utf8;
 use open ':std', ':encoding(UTF-8)';
 use HTML::TreeBuilder;
 use HTML::Element;
+use File::Basename;
 # This is the file we are going to read.
 
 my $file = 'test.html';
@@ -28,6 +29,8 @@ close($fho);
 
 sub recurse
 {
+    my $dirname = dirname(__FILE__);
+    print $dirname;
     my ($childNode, $depth) = @_;
     if (ref($childNode) && ($childNode->tag() eq '~text')) {
         my $text = $childNode->attr('text');
@@ -37,7 +40,7 @@ sub recurse
         print $fh_in $text;
         close $fh_in;
 
-        my @args = ("bash", "TRANSLATE.sh");
+        my @args = ("bash", $dirname."/TRANSLATE.sh");
         system @args;
 
         my $trans_text;
